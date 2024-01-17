@@ -32,5 +32,29 @@ For detailed API documentation, refer to [API Documentation](https://documenter.
    git clone https://github.com/your-username/Docker_in_Library-management.git
 
 2.Install Docker:
+  
+  Install Docker on your machine. Follow the official Docker installation guide for your operating system:
 
+  Docker Installation Guide:
+    https://docs.docker.com/engine/install/
 
+3. Build Docker image
+   
+  Build the Docker image for the library management system:
+    
+    ```bash
+    docker build -t library-management .
+
+4. Running with Docker
+
+   Run docker container only the library management project:
+
+     ```bash
+      docker run -p 8080:8080 -d library-management
+
+5. Running the project with multiple conatiners including dependencies:
+
+   Run docker compose command from the directory:
+
+   ```bash
+       docker-compose up
