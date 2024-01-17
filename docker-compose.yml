@@ -1,0 +1,49 @@
+  version: '3.9'
+
+
+  services:
+    postgres:
+      image: postgres:14.10
+      restart: unless-stopped
+      environment:
+        POSTGRES_DB: library_management
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: 12345
+      ports:
+        - "5434:5432"
+      networks:
+        - app-network
+
+
+    redis:
+      image: redis:latest
+      restart: unless-stopped
+      ports:
+        - "6380:6379"
+      environment:
+        REDIS_PASSWORD: ""
+      networks:
+        - app-network
+
+
+    golib:
+      build:
+        context: .
+      environment:
+        DB_Config: "host=postgres user=postgres password=12345 dbname=library_management port=5432 sslmode=disable"  
+        REDIS_HOST: redis
+        REDIS_PORT: 6379
+        REDIS_PASSWORD: ""
+      ports:
+        - "8080:8080"
+      depends_on:
+        - postgres
+        - redis
+      networks:
+        - app-network
+
+  networks:
+    app-network:
+      driver: bridge
+
+
